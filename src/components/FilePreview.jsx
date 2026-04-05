@@ -233,7 +233,7 @@ function FilePreview({ file }) {
             overflow: 'hidden',
           }}
         >
-          <Box component="video" controls sx={{ width: '100%', maxHeight: 400 }} src={file.url} />
+          <Box component="video" controls autoPlay sx={{ width: '100%', maxHeight: 400 }} src={file.url} />
         </Card>
       )}
 
