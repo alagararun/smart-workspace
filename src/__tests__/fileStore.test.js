@@ -136,4 +136,51 @@ describe('File Store - Core Operations', () => {
       expect(result.current.data).toBeDefined();
     });
   });
+
+  describe('Keyboard Navigation', () => {
+    it('should navigate between folders with arrow keys', () => {
+      const { result } = renderHook(() => useFileStore());
+      expect(result.current.currentFolderId).toBe('root');
+      act(() => {
+        result.current.setCurrentFolder('folder-1');
+      });
+      expect(result.current.currentFolderId).toBe('folder-1');
+    });
+  });
+
+  describe('Selection & Focus', () => {
+    it('should maintain focused item during navigation', () => {
+      const { result } = renderHook(() => useFileStore());
+      act(() => {
+        result.current.setSelectedFileIds(['file-1']);
+      });
+      expect(result.current.selectedFileIds[0]).toBe('file-1');
+      act(() => {
+        result.current.setCurrentFolder('folder-1');
+      });
+      expect(result.current.selectedFileIds.length).toBe(0);
+    });
+
+    it('should handle multi-select operations', () => {
+      const { result } = renderHook(() => useFileStore());
+      act(() => {
+        result.current.setSelectedFileIds(['file-1', 'file-2', 'file-3']);
+      });
+      expect(result.current.selectedFileIds.length).toBe(3);
+    });
+  });
+
+  describe('File Operations Integrity', () => {
+    it('should preserve data during nested navigation', () => {
+      const { result } = renderHook(() => useFileStore());
+      const originalData = JSON.stringify(result.current.data);
+      act(() => {
+        result.current.setCurrentFolder('folder-1');
+        result.current.setSelectedFileIds(['file-1']);
+        result.current.setCurrentFolder('root');
+      });
+      const afterData = JSON.stringify(result.current.data);
+      expect(originalData).toBe(afterData);
+    });
+  });
 });

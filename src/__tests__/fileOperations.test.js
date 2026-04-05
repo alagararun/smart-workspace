@@ -97,5 +97,55 @@ describe('File Operations - Core Utils', () => {
       expect(graph.nodes.length).toBeGreaterThan(0);
       expect(Array.isArray(graph.edges)).toBe(true);
     });
+
+    it('should handle complex nested folder structures', () => {
+      const tree = {
+        id: 'root',
+        name: 'Root',
+        type: 'folder',
+        children: [
+          { id: '1', name: 'File1', type: 'file' },
+          {
+            id: '2',
+            name: 'Folder2',
+            type: 'folder',
+            children: [
+              { id: '3', name: 'File3', type: 'file' },
+              { id: '4', name: 'Folder4', type: 'folder', children: [] },
+            ],
+          },
+        ],
+      };
+      const graph = buildGraphData(tree);
+      expect(graph.nodes.length).toBeGreaterThanOrEqual(4);
+      expect(graph.edges.length).toBeGreaterThan(0);
+    });
+  });
+
+  describe('File Size Conversion', () => {
+    it('should handle all unit conversions correctly', () => {
+      expect(formatFileSize(0)).toBe('0 B');
+      expect(formatFileSize(1024)).toBe('1 KB');
+      expect(formatFileSize(1048576)).toBe('1 MB');
+      expect(formatFileSize(1073741824)).toBe('1 GB');
+    });
+  });
+
+  describe('Date Formatting', () => {
+    it('should format dates in consistent format', () => {
+      const date = new Date('2024-01-15');
+      const result = formatDate(date);
+      expect(result).toBeDefined();
+      expect(result.length).toBeGreaterThan(0);
+    });
+  });
+
+  describe('File Type Detection', () => {
+    it('should correctly identify all media types', () => {
+      expect(getFileType('test.jpg')).toBe('image');
+      expect(getFileType('test.mp4')).toBe('video');
+      expect(getFileType('test.pdf')).toBe('pdf');
+      expect(getFileType('test.txt')).toBe('other');
+    });
   });
 });

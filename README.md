@@ -167,10 +167,11 @@ npm run test:coverage # Coverage report
 ```
 
 ### Test Coverage by Area
-- **Store** (19 tests) - All actions and state management
-- **Utils** (15 tests) - Business logic functions
-- **Mock API** (9 tests) - API simulation
-- **Components** (12 tests) - Key features
+- **Store** (16 tests) - Navigation, selection, clipboard, drag-drop, operations
+- **Utils** (13 tests) - File type, size, date, graph, nested structures
+- **Mock API** (12 tests) - Upload, operations reliability, response structure
+- **Components** (11 tests) - Preview, list, file types, advanced scenarios
+- **Total**: 52 tests passing
 
 ## Key Metrics
 

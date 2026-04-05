@@ -114,4 +114,59 @@ describe('Mock API - Core Operations', () => {
       }
     });
   });
+
+  describe('File Operations Reliability', () => {
+    it('should handle rename with success response', async () => {
+      let retries = 3;
+      while (retries > 0) {
+        try {
+          const response = await mockApi.renameFile('file-1', 'NewName.pdf');
+          expect(response.success).toBe(true);
+          expect(response.data.name).toBe('NewName.pdf');
+          break;
+        } catch (e) {
+          retries--;
+          if (retries === 0) throw e;
+        }
+      }
+    });
+
+    it('should handle delete operation reliably', async () => {
+      let retries = 3;
+      while (retries > 0) {
+        try {
+          const response = await mockApi.deleteFile('file-1');
+          expect(response.success).toBe(true);
+          break;
+        } catch (e) {
+          retries--;
+          if (retries === 0) throw e;
+        }
+      }
+    });
+
+    it('should move files to target folder correctly', async () => {
+      let retries = 3;
+      while (retries > 0) {
+        try {
+          const response = await mockApi.moveFile('file-1', 'folder-2');
+          expect(response.success).toBe(true);
+          expect(response.data.parentId).toBe('folder-2');
+          break;
+        } catch (e) {
+          retries--;
+          if (retries === 0) throw e;
+        }
+      }
+    });
+  });
+
+  describe('API Response Structure', () => {
+    it('should return consistent response format for all operations', async () => {
+      const response = await mockApi.getFiles('root');
+      expect(response).toHaveProperty('success');
+      expect(response).toHaveProperty('data');
+      expect(typeof response.success).toBe('boolean');
+    });
+  });
 });

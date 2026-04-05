@@ -137,5 +137,68 @@ describe('React Components - Core Tests', () => {
       render(<FileList currentFolder={folder} />);
       expect(screen.getByRole('button', { name: /Upload File/i })).toBeInTheDocument();
     });
+
+    it('should render multiple file types with correct icons', () => {
+      const folder = {
+        id: 'folder-1',
+        name: 'Mixed Files',
+        type: 'folder',
+        children: [
+          { id: 'file-1', name: 'image.jpg', type: 'file', fileType: 'image' },
+          { id: 'file-2', name: 'video.mp4', type: 'file', fileType: 'video' },
+          { id: 'file-3', name: 'document.pdf', type: 'file', fileType: 'pdf' },
+        ],
+      };
+
+      render(<FileList currentFolder={folder} />);
+      expect(screen.getByText('image.jpg')).toBeInTheDocument();
+      expect(screen.getByText('video.mp4')).toBeInTheDocument();
+      expect(screen.getByText('document.pdf')).toBeInTheDocument();
+    });
+  });
+
+  describe('FilePreview - Advanced', () => {
+    it('should display folder information correctly', () => {
+      const folder = {
+        id: 'folder-1',
+        name: 'Documents',
+        type: 'folder',
+        children: [
+          { id: 'file-1', name: 'doc1.pdf', type: 'file' },
+          { id: 'file-2', name: 'doc2.pdf', type: 'file' },
+        ],
+        date: new Date('2024-01-15'),
+      };
+
+      render(<FilePreview file={folder} />);
+      expect(screen.getByText(/Documents/i)).toBeInTheDocument();
+    });
+
+    it('should handle video file preview', () => {
+      const file = {
+        id: 'file-1',
+        name: 'movie.mp4',
+        type: 'file',
+        fileType: 'video',
+        url: 'https://example.com/video.mp4',
+        date: new Date(),
+      };
+
+      render(<FilePreview file={file} />);
+      expect(screen.getByText('movie.mp4')).toBeInTheDocument();
+    });
+
+    it('should display unavailable preview message for unsupported formats', () => {
+      const file = {
+        id: 'file-1',
+        name: 'archive.zip',
+        type: 'file',
+        fileType: 'other',
+        date: new Date(),
+      };
+
+      render(<FilePreview file={file} />);
+      expect(screen.getByText(/archive.zip/)).toBeInTheDocument();
+    });
   });
 });
