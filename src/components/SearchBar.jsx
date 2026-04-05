@@ -35,21 +35,23 @@ function getFileIcon(node) {
 }
 
 function SearchResults({ open, onClose, results, onSelectFile, onOpenPreview }) {
-  const { setCurrentFolder, setSelectedFile } = useFileStore();
+  const { setCurrentFolder, setSearchQuery } = useFileStore();
 
   const handleSelectResult = useCallback(
     (node) => {
       if (node.type === 'folder') {
         // Single click on folder: navigate into it
         setCurrentFolder(node.id);
+        setSearchQuery('');
         onClose();
       } else {
         // Single click on file: open preview with the file
+        setSearchQuery('');
         onOpenPreview(node);
         onClose();
       }
     },
-    [setCurrentFolder, onClose, onOpenPreview]
+    [setCurrentFolder, setSearchQuery, onClose, onOpenPreview]
   );
 
   return (
