@@ -1,10 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import BreadcrumbNav from '../components/BreadcrumbNav';
+import { render, screen } from '@testing-library/react';
 import FilePreview from '../components/FilePreview';
 import FileList from '../components/FileList';
-import useFileStore from '../store/fileStore';
 
 // Mock zustand store for component testing
 vi.mock('../store/fileStore', () => {

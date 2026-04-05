@@ -153,7 +153,7 @@ src/
     ├── fileStore.test.js    # Store tests
     ├── fileOperations.test.js
     ├── mockApi.test.js
-    └── components.test.js
+    └── components.test.jsx
 ```
 
 ## Testing
@@ -252,7 +252,7 @@ All components use MUI Grid system with responsive props.
 - ✅ Mobile responsive (xs-lg)
 - ✅ Image fullscreen preview
 - ✅ Copy/paste with duplication
-- ✅ Mock API with 60% test coverage
+- ✅ Mock API with 80% test coverage
 
 ---
 

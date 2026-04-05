@@ -21,7 +21,6 @@ import {
   DialogContent,
   DialogActions,
   Typography,
-  Divider,
 } from '@mui/material';
 import {
   DarkMode as DarkModeIcon,
