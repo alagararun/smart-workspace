@@ -2,6 +2,8 @@
 
 A React file explorer with multi-select, drag-drop, keyboard navigation, and mobile responsive design.
 
+<img width="1919" height="914" alt="Screenshot 2026-04-05 135006" src="https://github.com/user-attachments/assets/a7b0388f-da67-43c5-9929-56520c76d82f" />
+
 ## Quick Start
 
 ```bash
