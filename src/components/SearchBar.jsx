@@ -34,19 +34,22 @@ function getFileIcon(node) {
   return <InsertDriveFileIcon sx={{ fontSize: 32 }} />;
 }
 
-function SearchResults({ open, onClose, results, onSelectFile }) {
+function SearchResults({ open, onClose, results, onSelectFile, onOpenPreview }) {
   const { setCurrentFolder, setSelectedFile } = useFileStore();
 
   const handleSelectResult = useCallback(
     (node) => {
       if (node.type === 'folder') {
+        // Single click on folder: navigate into it
         setCurrentFolder(node.id);
+        onClose();
       } else {
-        setSelectedFile(node.id);
+        // Single click on file: open preview with the file
+        onOpenPreview(node);
+        onClose();
       }
-      onClose();
     },
-    [setCurrentFolder, setSelectedFile, onClose]
+    [setCurrentFolder, onClose, onOpenPreview]
   );
 
   return (
@@ -80,7 +83,7 @@ function SearchResults({ open, onClose, results, onSelectFile }) {
   );
 }
 
-function SearchBar() {
+function SearchBar({ onOpenPreview }) {
   const { searchQuery, setSearchQuery, searchFiles } = useFileStore();
   const [searchOpen, setSearchOpen] = useState(false);
   const [results, setResults] = useState([]);
@@ -127,7 +130,12 @@ function SearchBar() {
           },
         }}
       />
-      <SearchResults open={searchOpen} onClose={() => setSearchOpen(false)} results={results} />
+      <SearchResults 
+        open={searchOpen} 
+        onClose={() => setSearchOpen(false)} 
+        results={results} 
+        onOpenPreview={onOpenPreview}
+      />
     </Box>
   );
 }

@@ -86,6 +86,7 @@ function App() {
     setError,
     getCurrentFolder,
     getSelectedFile,
+    setSelectedFile,
     clearSelection,
   } = useFileStore();
 
@@ -94,6 +95,7 @@ function App() {
   const [moreMenuAnchor, setMoreMenuAnchor] = useState(null);
   const [statsDialogOpen, setStatsDialogOpen] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewFile, setPreviewFile] = useState(null);
   const [graphModalOpen, setGraphModalOpen] = useState(false);
 
   // Handle window resize to update sidebar state
@@ -136,9 +138,13 @@ function App() {
   }, [currentFolder]);
 
   // Handler for opening preview on double-click
-  const handleOpenPreview = useCallback(() => {
+  const handleOpenPreview = useCallback((file = null) => {
+    if (file) {
+      setPreviewFile(file);
+      setSelectedFile(file.id);
+    }
     setPreviewOpen(true);
-  }, []);
+  }, [setSelectedFile]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -316,7 +322,7 @@ function App() {
               )}
 
               <BreadcrumbNav />
-              <SearchBar />
+              <SearchBar onOpenPreview={handleOpenPreview} />
 
               {loading ? (
                 <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
@@ -402,7 +408,10 @@ function App() {
       {/* Preview Dialog */}
       <Dialog 
         open={previewOpen} 
-        onClose={() => setPreviewOpen(false)} 
+        onClose={() => {
+          setPreviewOpen(false);
+          setPreviewFile(null);
+        }} 
         maxWidth="lg" 
         fullWidth
         PaperProps={{
@@ -412,13 +421,16 @@ function App() {
         }}
       >
         <DialogTitle>
-          📋 {selectedFile?.name || 'Preview'}
+          📋 {(previewFile || selectedFile)?.name || 'Preview'}
         </DialogTitle>
         <DialogContent sx={{ p: 3, display: 'flex', flexDirection: 'column' }}>
-          <FilePreview file={selectedFile} />
+          <FilePreview file={previewFile || selectedFile} />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setPreviewOpen(false)} variant="contained">
+          <Button onClick={() => {
+            setPreviewOpen(false);
+            setPreviewFile(null);
+          }} variant="contained">
             Close
           </Button>
         </DialogActions>
