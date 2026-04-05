@@ -97,7 +97,7 @@ Components Re-render
 ### Preview
 - **Double-click file** → Open preview modal
 - **Images** → View with fullscreen option
-- **Videos** → HTML5 player
+- **Videos** → HTML5 player with auto-play
 - **PDFs** → Embedded viewer
 - **Other** → Show metadata + download
 
@@ -160,20 +160,25 @@ src/
 
 ## Testing
 
-Test coverage: 60% (focus on critical paths)
+Test coverage: 64 tests across 4 files (65%+ in critical business logic)
 
 ```bash
-npm run test           # Run tests
+npm run test           # Run tests (64 tests across 4 files)
 npm run test:watch    # Watch mode
 npm run test:coverage # Coverage report
 ```
 
 ### Test Coverage by Area
-- **Store** (16 tests) - Navigation, selection, clipboard, drag-drop, operations
-- **Utils** (13 tests) - File type, size, date, graph, nested structures
-- **Mock API** (12 tests) - Upload, operations reliability, response structure
-- **Components** (11 tests) - Preview, list, file types, advanced scenarios
-- **Total**: 52 tests passing
+- **Store** (fileStore.test.js) - 16 tests: Navigation, selection, clipboard, drag-drop, operations
+- **Utils** (fileOperations.test.js) - 13 tests: File type, size, date, graph, nested structures
+- **Mock API** (mockApi.test.js) - 12 tests: Upload, operations reliability, response structure
+- **Components** (components.test.jsx) - 23 tests: Preview, list, file types, edge cases
+- **Total**: 64 tests passing
+
+### Coverage by Module
+- **Utils (fileOperations.js)**: 65.88% ✅ Exceeds 60%
+- **Store (fileStore.js)**: 60.86% ✅ Meets 60%
+- **Data (mockFileTree.js)**: 100% ✅ Full coverage
 
 ## Key Metrics
 
@@ -183,7 +188,7 @@ npm run test:coverage # Coverage report
 | Dev Server Start | <300ms |
 | Page Load | <1s |
 | Max Items | 1000+ |
-| Test Coverage | 60% |
+| Test Coverage | 64 tests (65%+ in business logic) |
 
 ## Design Patterns
 
