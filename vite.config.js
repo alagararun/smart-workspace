@@ -7,7 +7,8 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-     threads: false,
+    threads: false,
     setupFiles: './setupTests.js',
+    reporter: ['verbose'],
   },
 })
