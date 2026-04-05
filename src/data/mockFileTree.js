@@ -1,0 +1,98 @@
+export const mockFileTree = {
+  id: 'root',
+  name: 'My Files',
+  type: 'folder',
+  children: [
+    {
+      id: 'folder-1',
+      name: 'Documents',
+      type: 'folder',
+      children: [
+        {
+          id: 'file-1',
+          name: 'Report.pdf',
+          type: 'file',
+          fileType: 'pdf',
+          url: '/Report.pdf',
+          size: 2048576,
+          date: new Date('2024-01-15'),
+        },
+        {
+          id: 'file-2',
+          name: 'Notes.txt',
+          type: 'file',
+          fileType: 'other',
+          url: '/Notes.txt',
+          size: 4096,
+          date: new Date('2024-01-10'),
+        },
+        {
+          id: 'folder-1-1',
+          name: 'Archives',
+          type: 'folder',
+          children: [
+            {
+              id: 'file-3',
+              name: 'Old_Project.pdf',
+              type: 'file',
+              fileType: 'pdf',
+              url: '/Old_Project.pdf',
+              size: 1024000,
+              date: new Date('2023-12-01'),
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'folder-2',
+      name: 'Images',
+      type: 'folder',
+      children: [
+        {
+          id: 'file-4',
+          name: 'Nature.png',
+          type: 'file',
+          fileType: 'image',
+          url: '/Nature.png',
+          size: 512000,
+          date: new Date('2024-01-20'),
+        },
+        {
+          id: 'file-5',
+          name: 'Vacation.png',
+          type: 'file',
+          fileType: 'image',
+          url: '/Vacation.png',
+          size: 2048000,
+          date: new Date('2024-01-18'),
+        },
+      ],
+    },
+    {
+      id: 'folder-3',
+      name: 'Videos',
+      type: 'folder',
+      children: [
+        {
+          id: 'file-6',
+          name: 'Demo.mp4',
+          type: 'file',
+          fileType: 'video',
+          url: 'https://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4',
+          size: 10485760,
+          date: new Date('2024-01-25'),
+        },
+      ],
+    },
+    {
+      id: 'file-7',
+      name: 'Readme.md',
+      type: 'file',
+      fileType: 'other',
+      url: '/Readme.md',
+      size: 8192,
+      date: new Date('2024-01-20'),
+    },
+  ],
+};
