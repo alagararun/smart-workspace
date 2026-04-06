@@ -160,10 +160,10 @@ src/
 
 ## Testing
 
-Test coverage: 64 tests across 4 files (65%+ in critical business logic)
+Test coverage: **93 tests** across 5 files (unit + integration)
 
 ```bash
-npm run test           # Run tests (64 tests across 4 files)
+npm run test           # Run all tests (93 tests)
 npm run test:watch    # Watch mode
 npm run test:coverage # Coverage report
 ```
@@ -173,12 +173,25 @@ npm run test:coverage # Coverage report
 - **Utils** (fileOperations.test.js) - 13 tests: File type, size, date, graph, nested structures
 - **Mock API** (mockApi.test.js) - 12 tests: Upload, operations reliability, response structure
 - **Components** (components.test.jsx) - 23 tests: Preview, list, file types, edge cases
-- **Total**: 64 tests passing
+- **Integration** (integration.test.jsx) - **29 tests**: Full workflow tests with React Testing Library
+- **Total**: 93 tests passing (10.03s runtime)
 
 ### Coverage by Module
 - **Utils (fileOperations.js)**: 65.88% ✅ Exceeds 60%
 - **Store (fileStore.js)**: 60.86% ✅ Meets 60%
 - **Data (mockFileTree.js)**: 100% ✅ Full coverage
+
+### Integration Tests (29 tests)
+Full end-to-end workflow testing with React Testing Library:
+- **Search and Navigation** - 3 tests: Search UI, folder structure, navigation
+- **File Operations** - 3 tests: Preview display, view toggle, file list controls
+- **Multi-Select** - 3 tests: Single selection, Ctrl+A, Escape to clear
+- **Keyboard Navigation** - 5 tests: Arrow keys, Enter, Ctrl+C/V, Delete
+- **Theme and UI State** - 3 tests: Theme rendering, toggle button, file system display
+- **Search Integration** - 3 tests: Search input availability, input acceptance, clearing
+- **Folder Navigation** - 2 tests: Folder display, breadcrumb navigation
+- **Error Handling** - 3 tests: Missing files, empty folders, rapid clicks
+- **Accessibility** - 2 tests: Search input accessibility, button labels, heading hierarchy
 
 ## Key Metrics
 
@@ -188,7 +201,9 @@ npm run test:coverage # Coverage report
 | Dev Server Start | <300ms |
 | Page Load | <1s |
 | Max Items | 1000+ |
-| Test Coverage | 64 tests (65%+ in business logic) |
+| **Unit Tests** | 64 tests (65%+ coverage) |
+| **Integration Tests** | 29 tests (~10s) |
+| **Total Tests** | 93 tests (all passing) |
 
 ## Design Patterns
 
@@ -256,18 +271,26 @@ All components use MUI Grid system with responsive props.
 - **Components** (ContextMenu, FileList, FilePreview): 19.03% - contains more jsx code
 
 **Test Breakdown:**
-- File Operations: 44 tests (utilities, edge cases, error handling)
-- File Store: 16 tests (state management, actions)
-- Components: 36 tests (UI rendering, interactions)
-- Mock API: 12 tests (network operations, reliability)
+- **Unit Tests** (64 tests):
+  - File Operations: 13 tests (utilities, edge cases, error handling)
+  - File Store: 16 tests (state management, actions)
+  - Components: 23 tests (UI rendering, interactions)
+  - Mock API: 12 tests (network operations, reliability)
+  
+- **Integration Tests** (29 tests):
+  - Full component workflow testing with React Testing Library
+  - Search, navigation, keyboard shortcuts
+  - Theme toggling and UI state management
+  - Error handling and accessibility verification
 
 **Coverage Strategy:**
 - Focus on business logic (utils, store) - Achieved >60%
 - Component rendering tests for UX coverage
+- Integration tests for real user workflows
 - Edge case and error handling tests
-- Integration tests for file operations reliability
+- Accessibility compliance validation
 
-**Status**: ✅ Complete
+**Status**: ✅ Complete - 93 total tests all passing
 
 **Key Features**:
 - ✅ File browsing and navigation
